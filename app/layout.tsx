@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://soudane-transit.vercel.app"),
+  metadataBase: new URL("https://soudane-transit.com"),
+  verification: {
+    google: "2jw_O3CIIuHYtcC4qC2GOVw7W-62mUC71FzvoOPg20Q"
+  },
   title: {
     default: "Soudane Transit | Transit et logistique internationale à Dakar",
     template: "%s | Soudane Transit"
