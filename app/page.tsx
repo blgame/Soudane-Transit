@@ -120,10 +120,10 @@ const strengths = [
 ];
 
 const stats = [
-  { value: 1000, prefix: "+", label: "clients accompagnés" },
-  { value: 5000, prefix: "+", label: "expéditions traitées" },
-  { value: 10, prefix: "+", label: "ans d'expérience" },
-  { value: 98, suffix: "%", label: "satisfaction client" }
+  { value: 350, prefix: "+", label: "clients accompagnés" },
+  { value: 1800, prefix: "+", label: "expéditions traitées" },
+  { value: 20, prefix: "+", label: "ans d'expérience" },
+  { value: 96, suffix: "%", label: "satisfaction client" }
 ];
 
 const solutionPillars: Array<{
