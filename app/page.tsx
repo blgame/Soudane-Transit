@@ -49,7 +49,6 @@ const terminalImage =
 const navItems = [
   { label: "Accueil", href: "#accueil" },
   { label: "Services", href: "#services" },
-  { label: "Suivi Conteneur", href: "#suivi" },
   { label: "Cotation", href: "#cotation" },
   { label: "À propos", href: "#apropos" },
   { label: "Contact", href: "#contact" }
@@ -708,20 +707,6 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="mt-5 grid gap-3 sm:grid-cols-[1fr_auto]">
-                <input
-                  className="field border-slate-300 bg-white"
-                  placeholder="Entrez BL ou conteneur"
-                  aria-label="Entrez BL ou conteneur"
-                />
-                <a
-                  href="#suivi"
-                  className="inline-flex items-center justify-center gap-2 rounded-lg bg-brand-orange px-5 py-3 text-sm font-black text-white transition hover:bg-[#e96f17]"
-                >
-                  Track
-                  <ArrowRight className="h-4 w-4" />
-                </a>
-              </div>
             </div>
           </motion.div>
         </div>
@@ -735,15 +720,12 @@ export default function Home() {
           >
             <div className="grid grid-cols-3 border-b border-slate-200 lg:border-b-0 lg:border-r dark:border-white/10">
               {[
-                ["Tracking", Search],
                 ["Cotation", Calculator],
                 ["Support", Headphones]
               ].map(([label, Icon]) => {
                 const ActionIcon = Icon as LucideIcon;
                 const href =
-                  label === "Tracking"
-                    ? "#suivi"
-                    : label === "Cotation"
+                  label === "Cotation"
                       ? "#cotation"
                       : "#contact";
 
