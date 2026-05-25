@@ -110,12 +110,12 @@ const services: Array<{
 ];
 
 const strengths = [
-  { title: "Rapidité", icon: Clock3 },
-  { title: "Fiabilité", icon: ShieldCheck },
+  { title: "Rapidité d'exécution", icon: Clock3 },
+  { title: "Fiabilité documentaire", icon: ShieldCheck },
   { title: "Expertise douanière", icon: BadgeCheck },
-  { title: "Suivi en temps réel", icon: BarChart3 },
+  { title: "Disponibilité 6j/7", icon: Headphones },
   { title: "Réseau international", icon: Network },
-  { title: "Service client réactif", icon: Headphones }
+  { title: "Transparence totale", icon: BarChart3 }
 ];
 
 const stats = [
@@ -164,54 +164,28 @@ const routeSignals = [
   "Livraison finale"
 ];
 
-const trackingSteps = [
-  "En transit",
-  "Arrivé au port",
-  "En dédouanement",
-  "Livré"
-];
 
 const testimonials = [
   {
-    name: "Awa Diop",
-    role: "Importatrice textile",
+    name: "Ibrahima Diallo",
+    role: "Directeur commercial, Dakar",
     quote:
-      "Soudane Transit nous accompagne avec une grande rigueur. Les délais sont clairs et le suivi est toujours disponible."
+      "Notre conteneur a été dédouané en moins de 48h. Zéro blocage, zéro surprise. Soudane Transit connaît le port de Dakar mieux que personne."
   },
   {
-    name: "Mamadou Fall",
-    role: "Responsable achats",
+    name: "Fatou Sarr",
+    role: "Responsable import/export",
     quote:
-      "Le dédouanement de nos conteneurs est devenu beaucoup plus fluide. L'équipe anticipe les documents sensibles."
+      "Depuis que nous travaillons avec eux, nous n'avons plus eu un seul problème documentaire. Réactifs, disponibles, et toujours honnêtes sur les délais."
   },
   {
-    name: "Claire Bernard",
-    role: "Export manager",
+    name: "Moussa Camara",
+    role: "Importateur, Sénégal",
     quote:
-      "Une qualité de service très professionnelle pour coordonner nos flux entre l'Europe, Dakar et la sous-région."
+      "Ce qui m'a convaincu, c'est leur disponibilité même le samedi. On sent qu'ils prennent nos opérations au sérieux comme si c'était les leurs."
   }
 ];
 
-const blogPosts = [
-  {
-    title: "Préparer un dossier import sans blocage",
-    tag: "Douane",
-    excerpt:
-      "Les pièces clés à vérifier avant l'arrivée du navire pour éviter les frais d'immobilisation."
-  },
-  {
-    title: "Comprendre le CBM en fret maritime",
-    tag: "Fret",
-    excerpt:
-      "Volume, poids taxable et groupage : les repères simples pour mieux anticiper votre cotation."
-  },
-  {
-    title: "Port de Dakar : mieux planifier la livraison",
-    tag: "Transport",
-    excerpt:
-      "Comment synchroniser mainlevée, camionnage et restitution conteneur avec plus de visibilité."
-  }
-];
 
 const faqs = [
   {
@@ -597,12 +571,10 @@ export default function Home() {
               Transit premium à Dakar
             </div>
             <h1 className="mt-7 max-w-4xl text-4xl font-black tracking-normal text-white sm:text-5xl lg:text-6xl">
-              Soudane Transit — Votre partenaire de confiance en transit et
-              logistique internationale.
+              Vos marchandises arrivent à temps. Sans blocage. Sans mauvaise surprise.
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-9 text-white/80">
-              Des solutions rapides, sécurisées et professionnelles pour vos
-              opérations import/export.
+              Soudane Transit gère vos opérations import/export depuis le port de Dakar — dédouanement, transport, livraison — avec plus de 20 ans d'expérience terrain.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
               {["Mer", "Air", "Terre", "Douane"].map((item) => (
@@ -792,8 +764,8 @@ export default function Home() {
           <div>
             <SectionIntro
               eyebrow="Pourquoi nous choisir"
-              title="La rigueur d'un transitaire local, la vision d'un partenaire international."
-              copy="Nous combinons expertise douanière, réactivité opérationnelle et suivi structuré pour sécuriser chaque étape de vos flux import/export."
+              title="20 ans d'expérience terrain. Zéro compromis sur vos délais."
+              copy="Fondée par des professionnels du transit, Soudane Transit maîtrise chaque étape : du manifeste portuaire à la livraison finale. Nous connaissons les rouages du Port de Dakar, les exigences douanières et les délais réels — pour vous éviter les mauvaises surprises."
             />
 
             <div className="mt-9 grid gap-4 sm:grid-cols-2">
@@ -944,9 +916,9 @@ export default function Home() {
         <div className="container-shell">
           <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
             <SectionIntro
-              eyebrow="Formulaire de cotation"
-              title="Recevez une proposition claire pour votre opération."
-              copy="Transmettez les informations essentielles. L'équipe Soudane Transit vous recontacte avec une estimation adaptée à votre flux."
+              eyebrow="Demande de cotation"
+              title="Obtenez votre estimation en moins de 24h."
+              copy="Remplissez le formulaire ci-contre. Notre équipe analyse votre opération et vous recontacte rapidement avec une proposition adaptée à votre marchandise, votre destination et vos délais."
             />
 
             <motion.form
@@ -1139,9 +1111,9 @@ export default function Home() {
         <div className="container-shell">
           <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
             <SectionIntro
-              eyebrow="Témoignages"
-              title="Des clients qui recherchent de la visibilité et de la sérénité."
-              copy="Le transit demande de la précision. Nos clients nous choisissent pour la qualité du suivi et la tenue des engagements."
+              eyebrow="Ils nous font confiance"
+              title="Ce que nos clients disent après leur première opération."
+              copy="La vraie différence, c'est ce qu'on dit de nous quand tout s'est bien passé. Fiabilité, réactivité et respect des délais — ce sont nos engagements au quotidien."
             />
 
             <div className="rounded-lg border border-slate-200 bg-brand-gray p-6 shadow-premium dark:border-white/10 dark:bg-white/10">
@@ -1234,17 +1206,14 @@ export default function Home() {
               Transit, dédouanement et logistique internationale pour les
               entreprises import/export basées au Sénégal et à l'international.
             </p>
-            <div className="mt-6 flex gap-3">
-              {["in", "f", "x"].map((social) => (
-                <a
-                  key={social}
-                  href="#accueil"
-                  className="grid h-10 w-10 place-items-center rounded-full border border-white/20 text-sm font-black text-white transition hover:border-brand-orange hover:bg-brand-orange"
-                  aria-label={`Réseau social ${social}`}
-                >
-                  {social}
-                </a>
-              ))}
+            <div className="mt-6">
+              <a
+                href="mailto:kessotransit@yahoo.fr"
+                className="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-sm font-bold text-white/80 transition hover:border-brand-orange hover:text-white"
+              >
+                <Mail className="h-4 w-4 text-brand-orange" />
+                kessotransit@yahoo.fr
+              </a>
             </div>
           </div>
 
