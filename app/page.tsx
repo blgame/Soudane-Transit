@@ -170,7 +170,7 @@ const testimonials = [
     name: "Ibrahima Diallo",
     role: "Directeur commercial, Dakar",
     quote:
-      "Notre conteneur a été dédouané en moins de 48h. Zéro blocage, zéro surprise. Soudane Transit connaît le port de Dakar mieux que personne."
+      "Grâce à Soudane Transit, notre dossier était prêt avant l'arrivée du navire. Le dédouanement s'est fait sans blocage et dans les meilleurs délais. Une équipe sérieuse qui connaît le port de Dakar."
   },
   {
     name: "Fatou Sarr",
