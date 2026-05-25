@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background: #f4f7f5;
+  color: #102018;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+.dark body {
+  background: #07140f;
+  color: #f8fafc;
+}
+
+section {
+  scroll-margin-top: 104px;
+}
+
+::selection {
+  background: rgba(244, 123, 32, 0.28);
+}
+
+.maritime-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+.route-line {
+  background:
+    linear-gradient(90deg, rgba(244, 123, 32, 0), rgba(244, 123, 32, 0.92), rgba(11, 107, 58, 0.92)),
+    repeating-linear-gradient(90deg, transparent 0 16px, rgba(255, 255, 255, 0.35) 16px 22px);
+}
+
+@layer components {
+  .container-shell {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .field {
+    @apply w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-brand-green focus:ring-4 focus:ring-brand-green/10 dark:border-white/10 dark:bg-white/10 dark:text-white dark:placeholder:text-slate-500;
+  }
+
+  .section-eyebrow {
+    @apply text-xs font-black uppercase tracking-[0.28em] text-brand-orange;
+  }
+
+  .section-title {
+    @apply mt-3 max-w-3xl text-3xl font-black tracking-normal text-brand-dark dark:text-white sm:text-4xl lg:text-5xl;
+  }
+
+  .section-copy {
+    @apply mt-4 max-w-2xl text-base leading-8 text-slate-600 dark:text-slate-300;
+  }
+}
