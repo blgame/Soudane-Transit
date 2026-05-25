@@ -581,9 +581,9 @@ export default function Home() {
           fill
           priority
           sizes="100vw"
-          className="object-cover opacity-72"
+          className="object-cover opacity-40"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#041b12]/96 via-[#073822]/88 to-[#073822]/44" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#041b12]/98 via-[#073822]/95 to-[#073822]/80" />
         <div className="maritime-grid absolute inset-0 opacity-60" />
         <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-brand-gray to-transparent dark:from-[#07140f]" />
 
