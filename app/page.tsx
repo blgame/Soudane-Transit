@@ -362,17 +362,6 @@ export default function Home() {
     return Math.max(250, Math.round(cbmValue * 145 + 180));
   }, [cbmValue]);
 
-  const handleTracking = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const seed = `${tracking.bl}${tracking.container}`.replace(/\s/g, "").length;
-
-    setTracking((current) => ({
-      ...current,
-      searched: true,
-      activeStep: seed ? seed % trackingSteps.length : 2
-    }));
-  };
-
   const handleQuoteSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -800,117 +789,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Section suivi conteneur supprimée */}
-      {false && <section id="suivi" className="py-20 sm:py-24">
-        <div className="container-shell">
-          <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-            <SectionIntro
-              eyebrow="Suivi conteneur"
-              title="Un tableau de bord clair pour suivre vos opérations."
-              copy="Saisissez un numéro BL ou un numéro de conteneur pour visualiser un statut simulé et la progression logistique."
-            />
-
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              className="rounded-lg border border-slate-200 bg-white p-5 shadow-premium dark:border-white/10 dark:bg-white/10"
-            >
-              <form onSubmit={handleTracking} className="grid gap-4 md:grid-cols-[1fr_1fr_auto]">
-                <label className="block">
-                  <span className="mb-2 block text-xs font-black uppercase tracking-[0.18em] text-slate-500 dark:text-slate-300">
-                    Numéro BL
-                  </span>
-                  <input
-                    className="field"
-                    placeholder="Ex: BL-DKR-2048"
-                    value={tracking.bl}
-                    onChange={(event) =>
-                      setTracking((current) => ({ ...current, bl: event.target.value }))
-                    }
-                  />
-                </label>
-                <label className="block">
-                  <span className="mb-2 block text-xs font-black uppercase tracking-[0.18em] text-slate-500 dark:text-slate-300">
-                    Numéro conteneur
-                  </span>
-                  <input
-                    className="field"
-                    placeholder="Ex: MSDU1234567"
-                    value={tracking.container}
-                    onChange={(event) =>
-                      setTracking((current) => ({
-                        ...current,
-                        container: event.target.value
-                      }))
-                    }
-                  />
-                </label>
-                <button
-                  type="submit"
-                  className="mt-6 inline-flex items-center justify-center gap-2 rounded-lg bg-brand-green px-6 py-3 text-sm font-black text-white transition hover:bg-[#095a31] md:mt-8"
-                >
-                  <Search className="h-4 w-4" />
-                  Suivre
-                </button>
-              </form>
-
-              <div className="mt-8 rounded-lg bg-brand-gray p-5 dark:bg-black/20">
-                <div className="flex flex-col justify-between gap-3 border-b border-slate-200 pb-4 dark:border-white/10 sm:flex-row sm:items-center">
-                  <div>
-                    <p className="text-xs font-black uppercase tracking-[0.22em] text-brand-orange">
-                      Statut simulé
-                    </p>
-                    <h3 className="mt-2 text-2xl font-black text-brand-dark dark:text-white">
-                      {tracking.searched
-                        ? trackingSteps[tracking.activeStep]
-                        : "En attente de recherche"}
-                    </h3>
-                  </div>
-                  <span className="rounded-full bg-white px-4 py-2 text-xs font-black text-brand-green dark:bg-white/10 dark:text-brand-light">
-                    Port de Dakar
-                  </span>
-                </div>
-
-                <div className="mt-6 grid gap-4 sm:grid-cols-4">
-                  {trackingSteps.map((step, index) => {
-                    const complete = tracking.searched && index <= tracking.activeStep;
-
-                    return (
-                      <div key={step} className="relative">
-                        <div
-                          className={cn(
-                            "grid h-11 w-11 place-items-center rounded-full border-2 transition",
-                            complete
-                              ? "border-brand-green bg-brand-green text-white"
-                              : "border-slate-300 bg-white text-slate-400 dark:border-white/20 dark:bg-white/10"
-                          )}
-                        >
-                          {complete ? (
-                            <CheckCircle2 className="h-5 w-5" />
-                          ) : (
-                            <span className="text-sm font-black">{index + 1}</span>
-                          )}
-                        </div>
-                        <p
-                          className={cn(
-                            "mt-3 text-sm font-black",
-                            complete
-                              ? "text-brand-dark dark:text-white"
-                              : "text-slate-500 dark:text-slate-400"
-                          )}
-                        >
-                          {step}
-                        </p>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>}
 
       <section id="cotation" className="bg-white py-20 dark:bg-white/[0.03] sm:py-24">
         <div className="container-shell">
