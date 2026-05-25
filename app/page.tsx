@@ -930,7 +930,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="suivi" className="py-20 sm:py-24">
+      {/* Section suivi conteneur supprimée */}
+      {false && <section id="suivi" className="py-20 sm:py-24">
         <div className="container-shell">
           <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
             <SectionIntro
@@ -1039,7 +1040,7 @@ export default function Home() {
             </motion.div>
           </div>
         </div>
-      </section>
+      </section>}
 
       <section id="cotation" className="bg-white py-20 dark:bg-white/[0.03] sm:py-24">
         <div className="container-shell">
@@ -1288,7 +1289,7 @@ export default function Home() {
       </section>
 
       <section className="py-20 sm:py-24">
-        <div className="container-shell grid gap-12 lg:grid-cols-[1fr_1fr]">
+        <div className="container-shell grid gap-12 lg:grid-cols-1">
           <div>
             <SectionIntro
               eyebrow="FAQ"
@@ -1324,38 +1325,6 @@ export default function Home() {
             </div>
           </div>
 
-          <div>
-            <SectionIntro
-              eyebrow="Blog logistique"
-              title="Des contenus pour mieux piloter vos flux."
-              copy="Conseils, repères douaniers et bonnes pratiques pour vos opérations import/export."
-            />
-            <div className="mt-8 grid gap-4">
-              {blogPosts.map((post) => (
-                <article
-                  key={post.title}
-                  className="rounded-lg border border-slate-200 bg-white p-5 shadow-soft transition hover:-translate-y-1 hover:shadow-premium dark:border-white/10 dark:bg-white/10"
-                >
-                  <div className="flex items-start gap-4">
-                    <span className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-brand-light text-brand-green">
-                      <FileText className="h-5 w-5" />
-                    </span>
-                    <div>
-                      <span className="text-xs font-black uppercase tracking-[0.22em] text-brand-orange">
-                        {post.tag}
-                      </span>
-                      <h3 className="mt-2 text-lg font-black text-brand-dark dark:text-white">
-                        {post.title}
-                      </h3>
-                      <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">
-                        {post.excerpt}
-                      </p>
-                    </div>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
         </div>
       </section>
 
