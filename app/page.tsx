@@ -120,8 +120,8 @@ const strengths = [
 ];
 
 const stats = [
-  { value: 350, prefix: "+", label: "clients accompagnés" },
-  { value: 1800, prefix: "+", label: "expéditions traitées" },
+  { value: 350, prefix: "+", label: "clients / an" },
+  { value: 1000, prefix: "+", label: "dossiers traités / an" },
   { value: 20, prefix: "+", label: "ans d'expérience" },
   { value: 96, suffix: "%", label: "satisfaction client" }
 ];
