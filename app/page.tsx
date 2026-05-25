@@ -622,15 +622,6 @@ export default function Home() {
                 Obtenir un devis
                 <ArrowRight className="h-4 w-4" />
               </a>
-              <a
-                href="https://wa.me/221338427835"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-brand-orange px-6 py-4 text-sm font-black text-white shadow-xl shadow-black/20 transition hover:-translate-y-0.5 hover:bg-[#e96f17]"
-              >
-                <MessageCircle className="h-4 w-4" />
-                WhatsApp
-              </a>
             </div>
           </motion.div>
 
@@ -1374,7 +1365,7 @@ export default function Home() {
             <div className="mt-6 overflow-hidden rounded-lg border border-white/10">
               <iframe
                 title="Carte Rue du Liban x Brazza Dakar"
-                src="https://www.google.com/maps?q=Rue%20du%20Liban%20x%20Brazza%20Dakar%20S%C3%A9n%C3%A9gal&output=embed"
+                src="https://www.google.com/maps?q=14.679868126807259,-17.43824723559809&z=17&output=embed"
                 className="h-48 w-full"
                 loading="lazy"
               />
@@ -1390,15 +1381,6 @@ export default function Home() {
         </div>
       </footer>
 
-      <a
-        href="https://wa.me/221338427835"
-        target="_blank"
-        rel="noreferrer"
-        className="fixed bottom-3 right-3 z-50 inline-flex h-11 w-11 items-center justify-center rounded-full bg-brand-orange text-white shadow-2xl shadow-brand-orange/35 transition hover:-translate-y-1 hover:bg-[#e96f17] sm:bottom-5 sm:right-5 sm:h-14 sm:w-14"
-        aria-label="Contacter Soudane Transit sur WhatsApp"
-      >
-        <MessageCircle className="h-5 w-5 sm:h-6 sm:w-6" />
-      </a>
     </main>
   );
 }
