@@ -15,8 +15,28 @@ type CotationPayload = {
 
 const recipientEmail = process.env.QUOTE_TO_EMAIL || "kessotransit@yahoo.fr";
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const FIELD_MAX_LENGTHS: Record<string, number> = {
+  nom: 100,
+  societe: 150,
+  telephone: 30,
+  email: 254,
+  typeMarchandise: 150,
+  origine: 150,
+  destination: 150,
+  typeConteneur: 100,
+  volumePoids: 100,
+  message: 3000
+};
+
 function normalize(value: unknown) {
   return typeof value === "string" ? value.trim() : "";
+}
+
+function truncate(value: string, field: string) {
+  const max = FIELD_MAX_LENGTHS[field] ?? 200;
+  return value.slice(0, max);
 }
 
 function escapeHtml(value: string) {
@@ -106,16 +126,16 @@ export async function POST(request: Request) {
   }
 
   const data: Required<CotationPayload> = {
-    nom: normalize(body.nom),
-    societe: normalize(body.societe),
-    telephone: normalize(body.telephone),
-    email: normalize(body.email),
-    typeMarchandise: normalize(body.typeMarchandise),
-    origine: normalize(body.origine),
-    destination: normalize(body.destination),
-    typeConteneur: normalize(body.typeConteneur),
-    volumePoids: normalize(body.volumePoids),
-    message: normalize(body.message)
+    nom: truncate(normalize(body.nom), "nom"),
+    societe: truncate(normalize(body.societe), "societe"),
+    telephone: truncate(normalize(body.telephone), "telephone"),
+    email: truncate(normalize(body.email), "email"),
+    typeMarchandise: truncate(normalize(body.typeMarchandise), "typeMarchandise"),
+    origine: truncate(normalize(body.origine), "origine"),
+    destination: truncate(normalize(body.destination), "destination"),
+    typeConteneur: truncate(normalize(body.typeConteneur), "typeConteneur"),
+    volumePoids: truncate(normalize(body.volumePoids), "volumePoids"),
+    message: truncate(normalize(body.message), "message")
   };
 
   const requiredFields = [
@@ -132,6 +152,13 @@ export async function POST(request: Request) {
   if (requiredFields.some((field) => !field)) {
     return NextResponse.json(
       { message: "Merci de compléter les champs obligatoires." },
+      { status: 400 }
+    );
+  }
+
+  if (!EMAIL_REGEX.test(data.email)) {
+    return NextResponse.json(
+      { message: "L'adresse email saisie n'est pas valide." },
       { status: 400 }
     );
   }
