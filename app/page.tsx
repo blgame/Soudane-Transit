@@ -389,17 +389,11 @@ export default function Home() {
         form.reset();
         return;
       }
-      if (result.fallbackMailto) {
-        window.location.href = result.fallbackMailto;
-        setAppStatus("error");
-        setAppMessage("Un email prérempli vient d'être ouvert pour l'envoi manuel.");
-        return;
-      }
       setAppStatus("error");
-      setAppMessage(result.message || "Impossible d'envoyer pour le moment.");
+      setAppMessage("Envoyez votre candidature directement à kessotransit@yahoo.fr ou appelez le +221 33 842 78 35.");
     } catch {
       setAppStatus("error");
-      setAppMessage("Erreur réseau. Merci de réessayer.");
+      setAppMessage("Envoyez votre candidature directement à kessotransit@yahoo.fr ou appelez le +221 33 842 78 35.");
     }
   };
 
@@ -438,23 +432,14 @@ export default function Home() {
         return;
       }
 
-      if (result.fallbackMailto) {
-        window.location.href = result.fallbackMailto;
-        setQuoteStatus("error");
-        setQuoteMessage(
-          "L'email automatique doit être configuré. Un email prérempli vient d'être ouvert pour l'envoi manuel."
-        );
-        return;
-      }
-
       setQuoteStatus("error");
       setQuoteMessage(
-        result.message || "Impossible d'envoyer la demande pour le moment."
+        "Envoyez votre demande directement à kessotransit@yahoo.fr ou appelez le +221 33 842 78 35."
       );
     } catch {
       setQuoteStatus("error");
       setQuoteMessage(
-        "Une erreur réseau empêche l'envoi. Merci de réessayer dans un instant."
+        "Envoyez votre demande directement à kessotransit@yahoo.fr ou appelez le +221 33 842 78 35."
       );
     }
   };
