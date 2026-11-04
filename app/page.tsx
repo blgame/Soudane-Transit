@@ -10,6 +10,7 @@ import {
   BadgeCheck,
   BarChart3,
   Boxes,
+  Briefcase,
   Calculator,
   CalendarClock,
   CheckCircle2,
@@ -51,6 +52,7 @@ const navItems = [
   { label: "Services", href: "#services" },
   { label: "Cotation", href: "#cotation" },
   { label: "À propos", href: "#apropos" },
+  { label: "Carrières", href: "#carrieres" },
   { label: "Contact", href: "#contact" }
 ];
 
@@ -185,6 +187,7 @@ const testimonials = [
       "Ce qui m'a convaincu, c'est leur disponibilité même le samedi. On sent qu'ils prennent nos opérations au sérieux comme si c'était les leurs."
   }
 ];
+
 
 
 const faqs = [
@@ -1073,6 +1076,53 @@ export default function Home() {
             </div>
           </div>
 
+        </div>
+      </section>
+
+      <section id="carrieres" className="bg-white py-20 dark:bg-white/[0.03] sm:py-24">
+        <div className="container-shell">
+          <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+            <div>
+              <SectionIntro
+                eyebrow="Rejoignez-nous"
+                title="Construisez votre carrière dans le transit international."
+                copy="Soudane Transit recrute des professionnels motivés, rigoureux et passionnés par la logistique. Rejoignez une équipe expérimentée au cœur du Port de Dakar."
+              />
+              <div className="mt-8 rounded-lg border border-brand-green/30 bg-brand-light p-6 dark:bg-brand-green/10">
+                <Briefcase className="h-7 w-7 text-brand-green dark:text-brand-light" />
+                <p className="mt-4 text-sm font-black text-brand-dark dark:text-white">
+                  Candidature spontanée
+                </p>
+                <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">
+                  Votre profil ne correspond pas exactement à une offre ? Envoyez votre CV et lettre de motivation — nous étudions toutes les candidatures sérieuses.
+                </p>
+                <a
+                  href="mailto:kessotransit@yahoo.fr?subject=Candidature%20spontan%C3%A9e%20%E2%80%94%20Soudane%20Transit"
+                  className="mt-5 inline-flex items-center gap-2 rounded-full bg-brand-green px-5 py-3 text-sm font-black text-white shadow-lg shadow-brand-green/20 transition hover:-translate-y-0.5 hover:bg-[#095a31]"
+                >
+                  Envoyer ma candidature
+                  <ArrowRight className="h-4 w-4" />
+                </a>
+              </div>
+            </div>
+
+            <div>
+              <p className="mb-5 text-xs font-black uppercase tracking-[0.22em] text-brand-orange">
+                Offres d'emploi
+              </p>
+              <div className="flex min-h-64 flex-col items-center justify-center gap-4 rounded-lg border border-dashed border-slate-300 bg-brand-gray p-10 text-center dark:border-white/20 dark:bg-white/5">
+                <span className="grid h-14 w-14 place-items-center rounded-full bg-white shadow-soft dark:bg-white/10">
+                  <Briefcase className="h-6 w-6 text-slate-400 dark:text-slate-500" />
+                </span>
+                <p className="font-black text-brand-dark dark:text-white">
+                  Aucune offre en cours
+                </p>
+                <p className="max-w-xs text-sm leading-7 text-slate-500 dark:text-slate-400">
+                  Revenez bientôt — les prochaines opportunités seront publiées ici.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
