@@ -378,12 +378,10 @@ export default function Home() {
     setAppStatus("sending");
     setAppMessage("Envoi en cours...");
     try {
-      const response = await fetch("https://formspree.io/f/mrppjyyv", {
+      const response = await fetch("/api/candidature", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          _subject: `Candidature spontanée — ${fd.get("nom") ?? ""}`,
-          _replyto: fd.get("email"),
           nom: fd.get("nom"),
           telephone: fd.get("telephone"),
           email: fd.get("email"),
@@ -391,9 +389,10 @@ export default function Home() {
           message: fd.get("message") || "Non renseigné"
         })
       });
+      const result = (await response.json()) as { message?: string };
       if (response.ok) {
         setAppStatus("success");
-        setAppMessage("Candidature envoyée avec succès. Nous reviendrons vers vous rapidement.");
+        setAppMessage(result.message || "Candidature envoyée avec succès. Nous reviendrons vers vous rapidement.");
         form.reset();
       } else {
         setAppStatus("error");
