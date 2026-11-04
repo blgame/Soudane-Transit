@@ -1,6 +1,9 @@
 "use client";
 
-import jobs from "../data/jobs.json";
+import jobsRaw from "../data/jobs.json";
+type Job = { title: string; type: string; location: string; description: string };
+const jobs = jobsRaw as unknown as Job[];
+
 import Image from "next/image";
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
