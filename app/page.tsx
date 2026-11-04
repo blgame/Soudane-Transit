@@ -378,13 +378,12 @@ export default function Home() {
     setAppStatus("sending");
     setAppMessage("Envoi en cours...");
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
+      const response = await fetch("https://formspree.io/f/mrppjyyv", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "",
-          subject: `Candidature spontanée — ${fd.get("nom") ?? ""}`,
-          from_name: "Soudane Transit — Carrières",
+          _subject: `Candidature spontanée — ${fd.get("nom") ?? ""}`,
+          _replyto: fd.get("email"),
           nom: fd.get("nom"),
           telephone: fd.get("telephone"),
           email: fd.get("email"),
@@ -392,8 +391,7 @@ export default function Home() {
           message: fd.get("message") || "Non renseigné"
         })
       });
-      const result = (await response.json()) as { success?: boolean; message?: string };
-      if (result.success) {
+      if (response.ok) {
         setAppStatus("success");
         setAppMessage("Candidature envoyée avec succès. Nous reviendrons vers vous rapidement.");
         form.reset();
