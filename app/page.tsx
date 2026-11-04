@@ -371,29 +371,36 @@ export default function Home() {
   const handleAppSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
-    const payload = Object.fromEntries(
-      Array.from(new FormData(form).entries()).map(([k, v]) => [k, String(v)])
-    );
+    const fd = new FormData(form);
     setAppStatus("sending");
     setAppMessage("Envoi en cours...");
     try {
-      const response = await fetch("/api/candidature", {
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
+        body: JSON.stringify({
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "",
+          subject: `Candidature spontanée — ${fd.get("nom") ?? ""}`,
+          from_name: "Soudane Transit — Carrières",
+          nom: fd.get("nom"),
+          telephone: fd.get("telephone"),
+          email: fd.get("email"),
+          poste: fd.get("poste") || "Non renseigné",
+          message: fd.get("message") || "Non renseigné"
+        })
       });
-      const result = (await response.json()) as { message?: string; fallbackMailto?: string };
-      if (response.ok) {
+      const result = (await response.json()) as { success?: boolean; message?: string };
+      if (result.success) {
         setAppStatus("success");
-        setAppMessage(result.message || "Candidature envoyée.");
+        setAppMessage("Candidature envoyée avec succès. Nous reviendrons vers vous rapidement.");
         form.reset();
-        return;
+      } else {
+        setAppStatus("error");
+        setAppMessage("Envoi échoué. Contactez-nous à kessotransit@yahoo.fr ou au +221 33 842 78 35.");
       }
-      setAppStatus("error");
-      setAppMessage("Envoyez votre candidature directement à kessotransit@yahoo.fr ou appelez le +221 33 842 78 35.");
     } catch {
       setAppStatus("error");
-      setAppMessage("Envoyez votre candidature directement à kessotransit@yahoo.fr ou appelez le +221 33 842 78 35.");
+      setAppMessage("Envoi échoué. Contactez-nous à kessotransit@yahoo.fr ou au +221 33 842 78 35.");
     }
   };
 
@@ -410,36 +417,34 @@ export default function Home() {
     setQuoteMessage("Envoi de votre demande en cours...");
 
     try {
-      const response = await fetch("/api/cotation", {
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(payload)
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "",
+          subject: `Demande de cotation — ${payload.nom ?? ""}`,
+          from_name: "Soudane Transit — Cotation",
+          ...payload
+        })
       });
 
-      const result = (await response.json()) as {
-        message?: string;
-        fallbackMailto?: string;
-      };
+      const result = (await response.json()) as { success?: boolean; message?: string };
 
-      if (response.ok) {
+      if (result.success) {
         setQuoteStatus("success");
-        setQuoteMessage(
-          result.message || "Votre demande de cotation a été envoyée."
-        );
+        setQuoteMessage("Votre demande de cotation a été envoyée. Nous vous recontactons sous 24h.");
         form.reset();
         return;
       }
 
       setQuoteStatus("error");
       setQuoteMessage(
-        "Envoyez votre demande directement à kessotransit@yahoo.fr ou appelez le +221 33 842 78 35."
+        "Envoi échoué. Contactez-nous à kessotransit@yahoo.fr ou au +221 33 842 78 35."
       );
     } catch {
       setQuoteStatus("error");
       setQuoteMessage(
-        "Envoyez votre demande directement à kessotransit@yahoo.fr ou appelez le +221 33 842 78 35."
+        "Envoi échoué. Contactez-nous à kessotransit@yahoo.fr ou au +221 33 842 78 35."
       );
     }
   };
