@@ -1,5 +1,6 @@
 "use client";
 
+import jobs from "../data/jobs.json";
 import Image from "next/image";
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
@@ -1110,17 +1111,61 @@ export default function Home() {
               <p className="mb-5 text-xs font-black uppercase tracking-[0.22em] text-brand-orange">
                 Offres d'emploi
               </p>
-              <div className="flex min-h-64 flex-col items-center justify-center gap-4 rounded-lg border border-dashed border-slate-300 bg-brand-gray p-10 text-center dark:border-white/20 dark:bg-white/5">
-                <span className="grid h-14 w-14 place-items-center rounded-full bg-white shadow-soft dark:bg-white/10">
-                  <Briefcase className="h-6 w-6 text-slate-400 dark:text-slate-500" />
-                </span>
-                <p className="font-black text-brand-dark dark:text-white">
-                  Aucune offre en cours
-                </p>
-                <p className="max-w-xs text-sm leading-7 text-slate-500 dark:text-slate-400">
-                  Revenez bientôt — les prochaines opportunités seront publiées ici.
-                </p>
-              </div>
+              {jobs.length === 0 ? (
+                <div className="flex min-h-64 flex-col items-center justify-center gap-4 rounded-lg border border-dashed border-slate-300 bg-brand-gray p-10 text-center dark:border-white/20 dark:bg-white/5">
+                  <span className="grid h-14 w-14 place-items-center rounded-full bg-white shadow-soft dark:bg-white/10">
+                    <Briefcase className="h-6 w-6 text-slate-400 dark:text-slate-500" />
+                  </span>
+                  <p className="font-black text-brand-dark dark:text-white">
+                    Aucune offre en cours
+                  </p>
+                  <p className="max-w-xs text-sm leading-7 text-slate-500 dark:text-slate-400">
+                    Revenez bientôt — les prochaines opportunités seront publiées ici.
+                  </p>
+                </div>
+              ) : (
+                <div className="grid gap-5">
+                  {jobs.map((job, index) => (
+                    <motion.article
+                      key={job.title}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-60px" }}
+                      transition={{ delay: index * 0.06, duration: 0.42 }}
+                      className="group rounded-lg border border-slate-200 bg-brand-gray p-6 shadow-soft transition hover:border-brand-green/40 hover:shadow-premium dark:border-white/10 dark:bg-white/10"
+                    >
+                      <div className="flex items-start gap-4">
+                        <span className="grid h-12 w-12 shrink-0 place-items-center rounded-lg bg-white text-brand-green shadow-soft transition group-hover:bg-brand-green group-hover:text-white dark:bg-white/10">
+                          <Briefcase className="h-6 w-6" />
+                        </span>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <h3 className="text-base font-black text-brand-dark dark:text-white">
+                              {job.title}
+                            </h3>
+                            <span className="rounded-full bg-brand-orange/15 px-3 py-0.5 text-xs font-black text-brand-orange">
+                              {job.type}
+                            </span>
+                            <span className="rounded-full bg-slate-100 px-3 py-0.5 text-xs font-bold text-slate-500 dark:bg-white/10 dark:text-slate-300">
+                              {job.location}
+                            </span>
+                          </div>
+                          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+                            {job.description}
+                          </p>
+                          <a
+                            href={`mailto:kessotransit@yahoo.fr?subject=Candidature%20%E2%80%94%20${encodeURIComponent(job.title)}`}
+                            className="mt-4 inline-flex items-center gap-2 text-sm font-black text-brand-green transition hover:text-[#095a31] dark:text-brand-light"
+                          >
+                            Postuler
+                            <ArrowRight className="h-4 w-4" />
+                          </a>
+                        </div>
+                      </div>
+                    </motion.article>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
