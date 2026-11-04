@@ -417,34 +417,36 @@ export default function Home() {
     setQuoteMessage("Envoi de votre demande en cours...");
 
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
+      const response = await fetch("/api/cotation", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "",
-          subject: `Demande de cotation — ${payload.nom ?? ""}`,
-          from_name: "Soudane Transit — Cotation",
-          ...payload
-        })
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
       });
 
-      const result = (await response.json()) as { success?: boolean; message?: string };
+      const result = (await response.json()) as {
+        message?: string;
+        fallbackMailto?: string;
+      };
 
-      if (result.success) {
+      if (response.ok) {
         setQuoteStatus("success");
-        setQuoteMessage("Votre demande de cotation a été envoyée. Nous vous recontactons sous 24h.");
+        setQuoteMessage(
+          result.message || "Votre demande de cotation a été envoyée."
+        );
         form.reset();
         return;
       }
 
       setQuoteStatus("error");
       setQuoteMessage(
-        "Envoi échoué. Contactez-nous à kessotransit@yahoo.fr ou au +221 33 842 78 35."
+        "Envoyez votre demande directement à kessotransit@yahoo.fr ou appelez le +221 33 842 78 35."
       );
     } catch {
       setQuoteStatus("error");
       setQuoteMessage(
-        "Envoi échoué. Contactez-nous à kessotransit@yahoo.fr ou au +221 33 842 78 35."
+        "Envoyez votre demande directement à kessotransit@yahoo.fr ou appelez le +221 33 842 78 35."
       );
     }
   };
