@@ -329,6 +329,8 @@ export default function Home() {
     quantity: "6"
   });
   const [openFaq, setOpenFaq] = useState(0);
+  const [appStatus, setAppStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [appMessage, setAppMessage] = useState("");
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 24);
@@ -365,6 +367,41 @@ export default function Home() {
 
     return Math.max(250, Math.round(cbmValue * 145 + 180));
   }, [cbmValue]);
+
+  const handleAppSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const payload = Object.fromEntries(
+      Array.from(new FormData(form).entries()).map(([k, v]) => [k, String(v)])
+    );
+    setAppStatus("sending");
+    setAppMessage("Envoi en cours...");
+    try {
+      const response = await fetch("/api/candidature", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      const result = (await response.json()) as { message?: string; fallbackMailto?: string };
+      if (response.ok) {
+        setAppStatus("success");
+        setAppMessage(result.message || "Candidature envoyée.");
+        form.reset();
+        return;
+      }
+      if (result.fallbackMailto) {
+        window.location.href = result.fallbackMailto;
+        setAppStatus("error");
+        setAppMessage("Un email prérempli vient d'être ouvert pour l'envoi manuel.");
+        return;
+      }
+      setAppStatus("error");
+      setAppMessage(result.message || "Impossible d'envoyer pour le moment.");
+    } catch {
+      setAppStatus("error");
+      setAppMessage("Erreur réseau. Merci de réessayer.");
+    }
+  };
 
   const handleQuoteSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -1089,22 +1126,70 @@ export default function Home() {
                 title="Construisez votre carrière dans le transit international."
                 copy="Soudane Transit recrute des professionnels motivés, rigoureux et passionnés par la logistique. Rejoignez une équipe expérimentée au cœur du Port de Dakar."
               />
-              <div className="mt-8 rounded-lg border border-brand-green/30 bg-brand-light p-6 dark:bg-brand-green/10">
+              <form
+                onSubmit={handleAppSubmit}
+                className="mt-8 rounded-lg border border-brand-green/30 bg-brand-light p-6 dark:bg-brand-green/10"
+              >
                 <Briefcase className="h-7 w-7 text-brand-green dark:text-brand-light" />
                 <p className="mt-4 text-sm font-black text-brand-dark dark:text-white">
                   Candidature spontanée
                 </p>
                 <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">
-                  Votre profil ne correspond pas exactement à une offre ? Envoyez votre CV et lettre de motivation — nous étudions toutes les candidatures sérieuses.
+                  Votre profil ne correspond pas exactement à une offre ? Remplissez ce formulaire — nous étudions toutes les candidatures sérieuses.
                 </p>
-                <a
-                  href="mailto:kessotransit@yahoo.fr?subject=Candidature%20spontan%C3%A9e%20%E2%80%94%20Soudane%20Transit"
-                  className="mt-5 inline-flex items-center gap-2 rounded-full bg-brand-green px-5 py-3 text-sm font-black text-white shadow-lg shadow-brand-green/20 transition hover:-translate-y-0.5 hover:bg-[#095a31]"
+                <div className="mt-5 grid gap-3">
+                  {[
+                    { label: "Nom complet", name: "nom", type: "text", placeholder: "Votre nom" },
+                    { label: "Téléphone", name: "telephone", type: "tel", placeholder: "+221 ..." },
+                    { label: "Email", name: "email", type: "email", placeholder: "email@exemple.com" },
+                    { label: "Poste visé (optionnel)", name: "poste", type: "text", placeholder: "Ex : Agent de transit" }
+                  ].map((field) => (
+                    <label key={field.name} className="block">
+                      <span className="mb-1 block text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-300">
+                        {field.label}
+                      </span>
+                      <input
+                        className="field"
+                        name={field.name}
+                        type={field.type}
+                        placeholder={field.placeholder}
+                        required={field.name !== "poste"}
+                      />
+                    </label>
+                  ))}
+                  <label className="block">
+                    <span className="mb-1 block text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-300">
+                      Message / Présentation
+                    </span>
+                    <textarea
+                      className="field min-h-24 resize-y"
+                      name="message"
+                      placeholder="Présentez-vous brièvement et décrivez votre expérience."
+                    />
+                  </label>
+                </div>
+                <button
+                  type="submit"
+                  disabled={appStatus === "sending"}
+                  className="mt-4 inline-flex items-center gap-2 rounded-full bg-brand-green px-5 py-3 text-sm font-black text-white shadow-lg shadow-brand-green/20 transition hover:-translate-y-0.5 hover:bg-[#095a31] disabled:cursor-not-allowed disabled:opacity-70"
                 >
-                  Envoyer ma candidature
+                  {appStatus === "sending" ? "Envoi en cours..." : "Envoyer ma candidature"}
                   <ArrowRight className="h-4 w-4" />
-                </a>
-              </div>
+                </button>
+                {appMessage ? (
+                  <p
+                    aria-live="polite"
+                    className={cn(
+                      "mt-3 rounded-lg px-4 py-3 text-sm font-bold",
+                      appStatus === "success"
+                        ? "bg-white text-brand-green dark:bg-brand-green/20"
+                        : "bg-orange-50 text-[#9a4a10] dark:bg-brand-orange/15 dark:text-brand-orange"
+                    )}
+                  >
+                    {appMessage}
+                  </p>
+                ) : null}
+              </form>
             </div>
 
             <div>
