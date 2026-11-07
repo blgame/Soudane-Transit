@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import { ArrowRight, BadgeCheck, Calculator, Headphones } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { solutionPillars, heroImage } from "./lib/data";
-import { AnimatedMap } from "./components/AnimatedMap";
 
 export default function Home() {
   return (
@@ -65,16 +64,6 @@ export default function Home() {
                 Nos services
               </Link>
             </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.45, duration: 0.75, ease: "easeOut" }}
-            className="hidden lg:flex lg:items-center lg:justify-center"
-            style={{ mixBlendMode: "screen" }}
-          >
-            <AnimatedMap />
           </motion.div>
         </div>
 
