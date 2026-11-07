@@ -44,7 +44,6 @@ export function AnimatedMap() {
       className="relative w-full overflow-hidden"
       style={{
         aspectRatio: "680 / 410",
-        mixBlendMode: "screen",
         WebkitMaskImage:
           "radial-gradient(ellipse 112% 95% at 50% 50%, black 15%, transparent 95%)",
         maskImage:

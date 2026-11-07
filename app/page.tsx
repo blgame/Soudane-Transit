@@ -72,6 +72,7 @@ export default function Home() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.45, duration: 0.75, ease: "easeOut" }}
             className="hidden lg:flex lg:items-center lg:justify-center"
+            style={{ mixBlendMode: "screen" }}
           >
             <AnimatedMap />
           </motion.div>
