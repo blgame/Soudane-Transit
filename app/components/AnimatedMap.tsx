@@ -26,18 +26,23 @@ export function AnimatedMap() {
      * aspect-ratio garantit une hauteur même si le parent n'en a pas.
      * Le masque radial crée un fondu doux sur les bords.
      */
+    /*
+     * mix-blend-mode: screen → les pixels sombres (océan) deviennent transparents,
+     * seuls les continents clairs et les routes orangées restent visibles.
+     * Plus de rectangle noir visible sur le fond hero.
+     */
     <div
       className="relative w-full overflow-hidden"
       style={{
         aspectRatio: "680 / 410",
-        /* Fondu sur les bords pour s'intégrer au fond sombre */
+        mixBlendMode: "screen",
+        /* Fondu progressif sur les bords */
         WebkitMaskImage:
-          "radial-gradient(ellipse 88% 82% at 52% 50%, black 45%, transparent 100%)",
+          "radial-gradient(ellipse 85% 78% at 52% 50%, black 20%, transparent 82%)",
         maskImage:
-          "radial-gradient(ellipse 88% 82% at 52% 50%, black 45%, transparent 100%)",
+          "radial-gradient(ellipse 85% 78% at 52% 50%, black 20%, transparent 82%)",
       }}
     >
-      {/* Carte monde : hue-rotate 270° convertit le bleu → vert, brightness 0.5 assombrit */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/world-map.png"
@@ -45,7 +50,7 @@ export function AnimatedMap() {
         aria-hidden="true"
         className="absolute inset-0 h-full w-full object-cover"
         style={{
-          filter: "hue-rotate(270deg) saturate(0.65) brightness(0.5) contrast(1.15)",
+          filter: "hue-rotate(270deg) saturate(1.1) brightness(0.75) contrast(1.2)",
         }}
       />
 
