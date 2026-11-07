@@ -1,48 +1,42 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Header } from "./components/Header";
+import { Footer } from "./components/Footer";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://soudane-transit.com"),
-  verification: {
-    google: "2jw_O3CIIuHYtcC4qC2GOVw7W-62mUC71FzvoOPg20Q"
-  },
+  verification: { google: "2jw_O3CIIuHYtcC4qC2GOVw7W-62mUC71FzvoOPg20Q" },
   title: {
     default: "Soudane Transit | Transit et logistique internationale à Dakar",
     template: "%s | Soudane Transit"
   },
-  description:
-    "Soudane Transit accompagne les opérations import/export, dédouanement, transport terrestre, fret maritime et logistique internationale depuis Dakar, Sénégal.",
-  keywords: [
-    "Soudane Transit",
-    "transit Dakar",
-    "logistique Sénégal",
-    "dédouanement",
-    "import export",
-    "fret maritime",
-    "transport conteneur"
-  ],
+  description: "Soudane Transit accompagne les opérations import/export, dédouanement, transport terrestre, fret maritime et logistique internationale depuis Dakar, Sénégal.",
+  keywords: ["Soudane Transit", "transit Dakar", "logistique Sénégal", "dédouanement", "import export", "fret maritime", "transport conteneur"],
   openGraph: {
     title: "Soudane Transit",
-    description:
-      "Votre partenaire de confiance en transit et logistique internationale.",
+    description: "Votre partenaire de confiance en transit et logistique internationale.",
     locale: "fr_SN",
     siteName: "Soudane Transit",
     type: "website"
   },
-  robots: {
-    index: true,
-    follow: true
-  }
+  robots: { index: true, follow: true }
 };
 
-export default function RootLayout({
-  children
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="fr" suppressHydrationWarning>
-      <body>{children}</body>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(localStorage.getItem('darkMode')==='true')document.documentElement.classList.add('dark')}catch{}`
+          }}
+        />
+      </head>
+      <body>
+        <Header />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
