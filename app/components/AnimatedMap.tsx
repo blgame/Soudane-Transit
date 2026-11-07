@@ -5,15 +5,19 @@ import { motion } from "framer-motion";
 /*
  * Coordonnées Plate Carrée sur un viewBox 680×410
  * x = (lon+180)/360*680   y = (90-lat)/180*410
+ *
+ * Positions vérifiées pixel à pixel sur le PNG 852×513 :
+ * les villes côtières sont décalées légèrement à l'intérieur
+ * pour que le marqueur tombe clairement sur la masse continentale.
  */
-const HUB = { x: 307, y: 172 }; // Dakar (-17.4°, 14.7°)
+const HUB = { x: 312, y: 172 }; // Dakar hub — intérieur Sénégal (~-15°, 14.5°)
 
 const routes = [
-  { x: 326, y: 129, label: "Casablanca", cpx: 318, cpy: 148, delay: 0.3 },
-  { x: 340, y: 92,  label: "Le Havre",   cpx: 326, cpy: 118, delay: 0.8 },
-  { x: 200, y: 112, label: "New York",   cpx: 248, cpy:  95, delay: 1.3 },
-  { x: 445, y: 148, label: "Dubaï",      cpx: 378, cpy: 115, delay: 1.8 },
-  { x: 346, y: 191, label: "Lagos",      cpx: 328, cpy: 181, delay: 2.3 },
+  { x: 327, y: 132, label: "Casablanca", cpx: 320, cpy: 150, delay: 0.3 },
+  { x: 340, y: 92,  label: "Le Havre",   cpx: 328, cpy: 118, delay: 0.8 },
+  { x: 200, y: 112, label: "New York",   cpx: 248, cpy:  90, delay: 1.3 },
+  { x: 445, y: 148, label: "Dubaï",      cpx: 380, cpy: 112, delay: 1.8 },
+  { x: 346, y: 191, label: "Lagos",      cpx: 330, cpy: 182, delay: 2.3 },
 ];
 
 function routePath(r: (typeof routes)[0]) {
@@ -27,20 +31,24 @@ export function AnimatedMap() {
      * Le masque radial crée un fondu doux sur les bords.
      */
     /*
-     * mix-blend-mode: screen → les pixels sombres (océan) deviennent transparents,
-     * seuls les continents clairs et les routes orangées restent visibles.
-     * Plus de rectangle noir visible sur le fond hero.
+     * Stratégie d'intégration :
+     * 1. invert(1) → inverse ocean clair↔continents sombres
+     *    (ocean devient sombre, continents deviennent clairs)
+     * 2. hue-rotate(70deg) → décale vers le vert du thème
+     * 3. brightness(0.78) → assombrit l'ensemble
+     * 4. mix-blend-mode: screen → les pixels sombres (ocean après invert)
+     *    disparaissent dans le fond hero, les continents clairs restent visibles.
+     * 5. mask-image radial → fondu doux sur les bords, plus de rectangle.
      */
     <div
       className="relative w-full overflow-hidden"
       style={{
         aspectRatio: "680 / 410",
         mixBlendMode: "screen",
-        /* Fondu progressif sur les bords */
         WebkitMaskImage:
-          "radial-gradient(ellipse 85% 78% at 52% 50%, black 20%, transparent 82%)",
+          "radial-gradient(ellipse 112% 95% at 50% 50%, black 15%, transparent 95%)",
         maskImage:
-          "radial-gradient(ellipse 85% 78% at 52% 50%, black 20%, transparent 82%)",
+          "radial-gradient(ellipse 112% 95% at 50% 50%, black 15%, transparent 95%)",
       }}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -50,7 +58,7 @@ export function AnimatedMap() {
         aria-hidden="true"
         className="absolute inset-0 h-full w-full object-cover"
         style={{
-          filter: "hue-rotate(270deg) saturate(1.1) brightness(0.75) contrast(1.2)",
+          filter: "invert(1) hue-rotate(70deg) brightness(0.78) saturate(1.1)",
         }}
       />
 
